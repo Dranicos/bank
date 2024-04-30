@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Menu menu = new Menu();
         Banca banca = new Banca();
+        Menu menu = new Menu(banca);
 
         System.out.println("BIENVENIDO A BANCO TORRE LA VEGA");
         System.out.println("NO HAY USUARIOS REGISTRADOS");
@@ -12,7 +12,7 @@ public class Main {
         //creacion de usuario y cuenta por defecto
         Usuario usuarioDefault = new Usuario(123456789 ,"Antonio", "Lopez", "02308928G");
         banca.addUsuario(usuarioDefault);
-        Cuenta cuentaDefault = new Cuenta("ES12345678901234567890", 2000);
+        Cuenta cuentaDefault = new Cuenta("ES1234567890123456789012", 2000);
         usuarioDefault.addCuenta(cuentaDefault);
 
 

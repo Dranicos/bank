@@ -7,7 +7,7 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private int telefono;
-    private List<Cuenta> cuentas;
+    public List<Cuenta> cuentas;
 
     //func y construct
     public Usuario() {
@@ -57,7 +57,8 @@ public class Usuario {
                     System.out.println("DNI introducido correctamente");
                     return inDNI;// Devolver el número de DNI con la letra
                 } else {
-                    System.out.println("La letra introducida no coincide con la letra calculada para el número de DNI.");
+                    System.out.println("La letra introducida no coincide con " +
+                            "la letra calculada para el número de DNI.");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("El número de DNI debe contener solo dígitos en la parte numérica.");
@@ -75,7 +76,8 @@ public class Usuario {
         } else {
             System.out.println("Cuentas del usuario " + nombre + ":");
             for (int i = 0; i < cuentas.size(); i++) {
-                System.out.println((i + 1) + ". IBAN: " + cuentas.get(i).getIBAN() + " saldo =  " + cuentas.get(i).getDinero() + "€");
+                System.out.println((i + 1) + ". IBAN: " + cuentas.get(i).getIBAN() +
+                        " saldo =  " + cuentas.get(i).getDinero() + "€");
             }
             return true;
         }

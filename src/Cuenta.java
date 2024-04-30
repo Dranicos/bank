@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Cuenta {
     private String IBAN;
     private double dinero;
-    private List<Hucha> huchas;
-    private List<Inversion> inversiones;
+    public List<Hucha> huchas;
+    public List<Inversion> inversiones;
     //func y construct
 
     public Cuenta() {

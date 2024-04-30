@@ -2,8 +2,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    Banca banca = new Banca();
+    private Banca banca;
+    public Menu(Banca banca) {
+        this.banca = banca;
+    }
 
+    //CREADOR DE USUARIOS NO IMPLEMENTADO
     public static void crearUsuario() {
         Usuario usuario = new Usuario();
         System.out.println("Usuario creado correctamente");
@@ -96,6 +100,10 @@ public class Menu {
                     case 3:
                         //Este es el mismo caso que el iban, solo que con el numero de telefono, lo que
                         //habria que asignar serian las limitaciones de cuentas que puedan hacer bizum
+                        //tendira que asignar un boolean a la hora de crear la cuenta de bizum, y luego
+                        // en el momneto de hacer el bizum, con solo buscar otra persona con bizum y encontrar
+                        //ese boolean, hacer el bizum en caso de que haga falta o no hacerlo porque no
+                        // tiene su cuenta vinculada a bizum (No implementado)
                         break;
                     case 4:
                         menuHucha(cuenta);
