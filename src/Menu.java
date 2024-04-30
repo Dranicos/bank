@@ -1,6 +1,8 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
+    Banca banca = new Banca();
 
     public static void crearUsuario() {
         Usuario usuario = new Usuario();
@@ -57,7 +59,7 @@ public class Menu {
                 }
                 System.out.println();
             } catch (Exception e) {
-                System.out.println("Uoop! Error!");
+                System.out.println("OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA");
             }
         }
     }
@@ -79,16 +81,27 @@ public class Menu {
                     case 0:
                         break;
                     case 1:
+                        System.out.println("Tu IBAN es: " + cuenta.getIBAN());
+                        System.out.println("Tu saldo total es de: " + cuenta.saldoTotal());
                         break;
                     case 2:
+                        System.out.println("Introduce el IBAN de la cuenta a la que quieres enviar dinero");
+                        String iban = sc.next();
+                        System.out.println("Introduzca el monto que quiere transferir");
+                        double monto = sc.nextDouble();
+                        System.out.println(cuenta.getIBAN());
+                        System.out.println(iban);
+                        banca.transferirDinero(cuenta.getIBAN(), iban, monto);
                         break;
                     case 3:
+                        //Este es el mismo caso que el iban, solo que con el numero de telefono, lo que
+                        //habria que asignar serian las limitaciones de cuentas que puedan hacer bizum
                         break;
                     case 4:
+                        menuHucha(cuenta);
                         break;
                     case 5:
-                        break;
-                    case 6:
+                        menuInversion(cuenta);
                         break;
                     default:
                         System.out.println("Número no reconocido");
@@ -96,8 +109,77 @@ public class Menu {
                 }
                 System.out.println("\n");
             } catch (Exception e) {
-                System.out.println("Uoop! Error!");
+                System.out.println("OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA");
             }
         }
     }
+
+    public void menuHucha(Cuenta cuenta) {
+        int select = -1;
+        while (select != 0) {
+            Scanner sc = new Scanner(System.in);
+            try {
+                System.out.println("""
+                        1.- SALDO EN LAS HUCHAS
+                        2.- CREAR NUEVA HUCHA
+                        3.- SACAR DINERO DE LA HUCHA
+                        0.- SALIR""");
+                select = sc.nextInt();
+                switch (select) {
+                    case 0:
+                        break;
+                    case 1:
+                        cuenta.mostrarSaldoHuchas(cuenta);
+                        break;
+                    case 2:
+                        cuenta.crearHucha();
+                        break;
+                    case 3:
+                        //no implementado
+                        break;
+                    default:
+                        System.out.println("Número no reconocido");
+                        break;
+                }
+                System.out.println();
+            } catch (Exception e) {
+                System.out.println("OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA");
+            }
+        }
+    }
+
+    public void menuInversion(Cuenta cuenta) {
+        int select = -1;
+        while (select != 0) {
+            Scanner sc = new Scanner(System.in);
+            try {
+                System.out.println("""
+                        1.- ESTADO INVERSIONES
+                        2.- CREAR NUEVA INVERSION
+                        3.- EXTRAER INVERSIONES
+                        0.- SALIR""");
+                select = sc.nextInt();
+                switch (select) {
+                    case 0:
+                        break;
+                    case 1:
+                        cuenta.mostrarSaldoInversion(cuenta);
+                        break;
+                    case 2:
+                        cuenta.crearInversion();
+                        break;
+                    case 3:
+                        //no implementado
+                        break;
+                    default:
+                        System.out.println("Número no reconocido");
+                        break;
+                }
+                System.out.println();
+            } catch (Exception e) {
+                System.out.println("OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA");
+            }
+        }
+    }
+
 }

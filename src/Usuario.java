@@ -16,39 +16,53 @@ public class Usuario {
         this.nombre = sc.next();
         System.out.println("Introduce tu apellido: ");
         this.apellido = sc.next();
-        this.DNI = checkdni();
+        this.DNI = checkDNI();
         System.out.println("Introduce tu numero de telefono: ");
         this.telefono = sc.nextInt();
         this.cuentas = new ArrayList<>();
     }
 
-    public static String checkdni() {
-        Scanner sc = new Scanner(System.in);
-        String dni_ref = "TRWAGMYFPDXBNJZSQVHLCKE";
-
-        System.out.print("Dime tu dni sin la letra: ");
-        int dni_actual = sc.nextInt();
-
-        System.out.println("dame la letra");
-        String letra = sc.next();
-        int resto = dni_actual % 23;
-
-        String letra_nueva = dni_ref.substring(resto, resto + 1);
-        if (letra.equals(letra_nueva)) {
-            System.out.println("El dni es correcto.");
-            return dni_actual + letra;
-        } else {
-            return checkdni();
-        }
+    public Usuario(int telefono, String apellido, String nombre, String DNI) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.DNI = DNI;
+        this.cuentas = new ArrayList<>();
     }
 
-    public Cuenta findByIBAN(String IBAN) {
-        for (Cuenta cuenta : cuentas) {
-            if (cuenta.getIBAN().equals(IBAN)) {
-                return cuenta;
+    public String checkDNI() {
+        Scanner scanner = new Scanner(System.in);
+        String dniRef = "TRWAGMYFPDXBNJZSQVHLCKE";
+
+        while (true) {
+            System.out.println("Introduce tu número de DNI con la letra ");
+            String inDNI = scanner.nextLine().trim();
+
+            if (inDNI.length() != 9) {
+                System.out.println("El número de DNI debe tener 8 dígitos seguidos de una letra.");
+                continue;
+            }
+
+            //separamos los numeros de las letras
+            String splitDNI = inDNI.substring(0, 8);
+            //en caso de que introduzcas una letra minuscula, lo maneja y la hace mayuscula
+            String letter = inDNI.substring(8).toUpperCase();
+
+            try {
+                int intDNI = Integer.parseInt(splitDNI); // Convertir la parte numérica del DNI a int
+                int resto = intDNI % 23; // Calcula resto
+                String calculatedLetter = dniRef.substring(resto, resto + 1);
+
+                if (letter.equals(calculatedLetter)) {
+                    System.out.println("DNI introducido correctamente");
+                    return inDNI;// Devolver el número de DNI con la letra
+                } else {
+                    System.out.println("La letra introducida no coincide con la letra calculada para el número de DNI.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("El número de DNI debe contener solo dígitos en la parte numérica.");
             }
         }
-        return null; // Si no se encuentra la cuenta con el IBAN especificado
     }
 
     /*esta funcion muestra las cuentas que tenga el usuario, si no tiene, mostrara un mensaje de no
